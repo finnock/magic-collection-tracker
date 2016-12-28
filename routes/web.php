@@ -15,8 +15,12 @@
 
 Auth::routes();
 
+Route::resource('Card', 'CardController');
+
+Route::get('test', function(){
+    return view('test');
+});
+
 Route::get('/', function (){
     return view('home');
 });
-
-Route::resource('Card', 'CardController');

@@ -14,12 +14,34 @@ class CreateCardsTable extends Migration
     public function up()
     {
         Schema::create('cards', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('edition_id', 5);
-            $table->string('cardNumber', 5);
-            $table->string('name', 255);
+
+            // Identifiers
+            $table->primary('id')->unique(); // SHA1(setCode, cardName, cardImageName)
+            $table->string('setCode', 5);
+            $table->string('name');
+            $table->string('number', 5);
+            $table->string('multiverseID');
+            $table->string('imageName');
+            $table->string('mciNumber');
+
+            /* JSON -Fields:
+             * layout, names, colors, colorIdentity, supertypes, types,
+             * subtypes, variations, hand, life, reserved, releaseDate, starter,
+             * loyalty, watermark, border
+             */
+            $table->json('meta');
+
+            // Card Values
+            $table->string('manaCost');
+            $table->string('convertedManaCost');
+            $table->string('type');
+            $table->string('rarity');
             $table->string('text');
-            $table->timestamps();
+            $table->string('flavor');
+            $table->string('artist');
+            $table->string('power');
+            $table->string('toughness');
+            $table->string('timeshifted');
         });
     }
 
@@ -31,5 +53,10 @@ class CreateCardsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('cards');
+    }
+
+    private function insertJsonSetFileToCards()
+    {
+
     }
 }
