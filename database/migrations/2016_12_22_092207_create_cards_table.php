@@ -31,6 +31,7 @@ class CreateCardsTable extends Migration
              */
             $table->json('meta');
 
+
             // Card Values
             $table->string('manaCost');
             $table->string('convertedManaCost');
