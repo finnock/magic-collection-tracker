@@ -1,9 +1,9 @@
 /node_modules
 /public/storage
-/vendor
-/.idea
 Homestead.json
 Homestead.yaml
+/vendor
+/.idea
 .env
 /resources/AllSets-x.json
 /public/img/cards
