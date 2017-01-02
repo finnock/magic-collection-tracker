@@ -1,11 +1,18 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
+use App\Card;
 use Illuminate\Http\Request;
 
 class CardController extends Controller
 {
+    public function __construct()
+    {
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +52,9 @@ class CardController extends Controller
      */
     public function show($id)
     {
-        //
+        //dd($card);
+        dd(Card::find($id));
+
     }
 
     /**

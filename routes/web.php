@@ -16,6 +16,7 @@
 Auth::routes();
 
 Route::resource('Card', 'CardController');
+Route::resource('Set', 'SetController');
 
 Route::get('test', function(){
     return view('test');

@@ -5,3 +5,5 @@
 Homestead.json
 Homestead.yaml
 .env
+/resources/AllSets-x.json
+/public/img/cards

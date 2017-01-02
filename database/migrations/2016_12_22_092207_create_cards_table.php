@@ -16,33 +16,35 @@ class CreateCardsTable extends Migration
         Schema::create('cards', function (Blueprint $table) {
 
             // Identifiers
-            $table->primary('id')->unique(); // SHA1(setCode, cardName, cardImageName)
-            $table->string('setCode', 5);
-            $table->string('name');
-            $table->string('number', 5);
-            $table->string('multiverseID');
-            $table->string('imageName');
-            $table->string('mciNumber');
+            $table->string('id')->unique(); // SHA1(setCode, cardName, cardImageName)
+            $table->string('setCode', 10)->nullable();
+            $table->string('name')->nullable();
+            $table->string('number', 5)->nullable();
+            $table->string('multiverseID')->nullable();
+            $table->string('imageName')->nullable();
+            $table->string('mciNumber')->nullable();
 
             /* JSON -Fields:
              * layout, names, colors, colorIdentity, supertypes, types,
              * subtypes, variations, hand, life, reserved, releaseDate, starter,
-             * loyalty, watermark, border
+             * loyalty, watermark, border, rulings, printings, legalities
              */
             $table->json('meta');
 
 
             // Card Values
-            $table->string('manaCost');
-            $table->string('convertedManaCost');
-            $table->string('type');
-            $table->string('rarity');
-            $table->string('text');
-            $table->string('flavor');
-            $table->string('artist');
-            $table->string('power');
-            $table->string('toughness');
-            $table->string('timeshifted');
+            $table->string('manaCost')->nullable();
+            $table->string('convertedManaCost')->nullable();
+            $table->string('type')->nullable();
+            $table->string('rarity')->nullable();
+            $table->longText('text')->nullable();
+            $table->longText('flavor')->nullable();
+            $table->string('artist')->nullable();
+            $table->string('power')->nullable();
+            $table->string('toughness')->nullable();
+            $table->string('timeshifted')->nullable();
+
+            $table->primary('id');
         });
     }
 
@@ -54,10 +56,5 @@ class CreateCardsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('cards');
-    }
-
-    private function insertJsonSetFileToCards()
-    {
-
     }
 }
