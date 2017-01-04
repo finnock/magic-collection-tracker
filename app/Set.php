@@ -28,7 +28,16 @@ class Set extends Model
 
     public function cards()
     {
-        return $this->hasMany('App\Card', 'setCode', 'code')->orderBy('number');
+        return $this->hasMany('App\Card', 'setCode', 'code')->orderBy('numberNumeric');
+    }
+
+
+    public static function expansionsAndCoreSets()
+    {
+        return Set::where('type', 'expansion')
+            ->orWhere('type', 'core')
+            ->orderBy('releaseDate', 'desc')
+            ->get();
     }
 
     protected $table = 'sets';

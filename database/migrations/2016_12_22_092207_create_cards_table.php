@@ -20,6 +20,7 @@ class CreateCardsTable extends Migration
             $table->string('setCode', 10)->nullable();
             $table->string('name')->nullable();
             $table->string('number', 5)->nullable();
+            $table->integer('numberNumeric')->nullable();
             $table->string('multiverseID')->nullable();
             $table->string('imageName')->nullable();
             $table->string('mciNumber')->nullable();

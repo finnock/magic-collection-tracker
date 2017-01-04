@@ -11,6 +11,7 @@ class Card extends Model
         'setCode',
         'name',
         'number',
+        'numberNumeric',
         'multiverseID',
         'imageName',
         'mciNumber',
@@ -32,5 +33,10 @@ class Card extends Model
     public function set()
     {
         return $this->belongsTo('App\Set', 'setCode', 'code');
+    }
+
+    public function meta()
+    {
+        return json_decode($this->meta);
     }
 }

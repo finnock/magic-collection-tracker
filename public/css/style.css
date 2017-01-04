@@ -1,3 +1,32 @@
 body{
     padding-top: 60px;
 }
+
+.table > tbody > tr > td {
+    vertical-align: middle !important;
+}
+
+
+/*[class*="col-"] {
+    background-color: rosybrown;
+    border: 1px solid black;
+}*/
+
+.jumbotron{
+    padding: 30px 60px !important;
+}
+
+.ss-10x {
+    font-size: 10em !important;
+}
+
+.content {
+}
+
+.title {
+    margin: auto;
+    font-size: 100px;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+}
+

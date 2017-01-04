@@ -13,15 +13,22 @@
 |
 */
 
-Auth::routes();
-
-Route::resource('Card', 'CardController');
-Route::resource('Set', 'SetController');
-
-Route::get('test', function(){
-    return view('test');
+Route::group(['middleware' => ['web']], function ()
+{
+    Auth::routes();
 });
 
-Route::get('/', function (){
-    return view('home');
+
+Route::group(['middleware' => ['web', 'auth']], function ()
+{
+    Route::resource('Card', 'CardController');
+    Route::resource('Set', 'SetController');
+
+    Route::get('test', function(){
+        return view('test');
+    });
+
+    Route::get('/', function () {
+        return view('home');
+    });
 });

@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\mtgjson::class,
+        Commands\mtgjsonGetCards::class,
         Commands\mtgjsonGetSets::class
     ];
 

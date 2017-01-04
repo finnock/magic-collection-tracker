@@ -8,38 +8,8 @@ use DB;
 use League\Flysystem\Exception;
 
 
-/**
- * @param $Array
- * @param $subKey
- * @return mixed
- */
-function array_pushDown(&$array, $subKey, $pushKey)
-{
-    $original = &$array;
 
-    if(!isset($original[$subKey]))
-        $original[$subKey] = array();
-
-    if(isset($original[$pushKey])){
-        $original[$subKey] = array_add($original[$subKey], $pushKey, $original[$pushKey]);
-        array_forget($original, $pushKey);
-    }
-
-    return $original;
-}
-
-function array_rename(&$array, $oldName, $newName){
-    $original = &$array;
-
-    if(isset($original[$oldName])) {
-        $original[$newName] = $original[$oldName];
-        array_forget($original, $oldName);
-    }
-
-    return $original;
-}
-
-class mtgjson extends Command
+class mtgjsonGetCards extends Command
 {
     /**
      * The name and signature of the console command.
@@ -78,20 +48,23 @@ class mtgjson extends Command
         $jsonFile = file_get_contents($path);
 
         $this->info('Decoding JSON...');
-        $allJSONSets = json_decode($jsonFile, true);
+        $JSONSets = json_decode($jsonFile, true);
 
         $this->info("Truncating 'cards' table...");
         DB::table('cards')->truncate();
 
-        $setCount = count($allJSONSets);
+        $setCount = count($JSONSets);
         $this->info("Starting to fetch cards from $setCount editions...");
         $bar = $this->output->createProgressBar($setCount);
 
-        foreach ($allJSONSets as $JSONSet){
-            $JSONCardSet = $JSONSet['cards'];
-            //$JSONCardSet = $allJSONSets['SOK']['cards']; //$JSONSet['cards'];
+        $cardCount = 0;
 
-            foreach ($JSONCardSet as $JSONCard){
+        foreach ($JSONSets as $JSONSet){
+            $JSONCards = $JSONSet['cards'];
+            $cardCount += count($JSONCards);
+            //$JSONCards = $JSONSets['SOK']['cards']; //$JSONSet['cards'];
+
+            foreach ($JSONCards as $JSONCard){
 
                 $JSONCard['setCode'] = $JSONSet['code'];
                 //$JSONCard['setCode'] = 'SOK'; //$JSONSet['code'];
@@ -123,9 +96,16 @@ class mtgjson extends Command
                 array_forget($JSONCard, 'originalType');
                 array_forget($JSONCard, 'source');
 
-                $JSONCard['meta'] = json_encode($JSONCard['meta']);
+                if(isset($JSONCard['number']))
+                    $JSONCard['numberNumeric'] = preg_replace('/\D/', '', $JSONCard['number']);
+                else
+                    $JSONCard['numberNumeric'] = 0;
+
+                    $JSONCard['meta'] = json_encode($JSONCard['meta']);
+
+                \App\Card::create($JSONCard);
                 /*try{
-                    \App\Card::create($JSONCard);
+
                 }
                 catch (\PDOException $exception){
                     array_forget($JSONSet, 'cards');
@@ -133,11 +113,13 @@ class mtgjson extends Command
                 }*/
             }
 
+
             $bar->advance();
         }
-        $this->info('');
-        $bar->finish();
 
-        $this->info("Fetched $setCount sets from the JSON file.");
+        $bar->finish();
+        $this->info("\r");
+
+        $this->info("Fetched $cardCount cards from the JSON file.");
     }
 }

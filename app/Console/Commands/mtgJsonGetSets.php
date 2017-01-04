@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+use DB;
+
 class mtgJsonGetSets extends Command
 {
     /**
@@ -47,6 +49,9 @@ class mtgJsonGetSets extends Command
         $this->info('Decoding JSON...');
         $allJSONSets = json_decode($jsonFile, true);
 
+        $this->info("Truncating 'sets' table...");
+        DB::table('sets')->truncate();
+
         $setCount = count($allJSONSets);
         $bar = $this->output->createProgressBar($setCount);
 
@@ -61,6 +66,7 @@ class mtgJsonGetSets extends Command
         }
 
         $bar->finish();
+        $this->info("\r");
 
         $this->info("Fetched $setCount sets from the JSON file.");
 
