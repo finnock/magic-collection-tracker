@@ -47,6 +47,7 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/Set">Sets</a></li>
+                <li><a href="{{ url('/Collection') }}">Collection</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
@@ -60,6 +61,8 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/Collection/Add') }}">Add Card</a></li>
+                            <li><a href="{{ url('/Collection') }}">Collection</a></li>
                             <li>
                                 <a href="{{ url('/logout') }}"
                                    onclick="event.preventDefault();

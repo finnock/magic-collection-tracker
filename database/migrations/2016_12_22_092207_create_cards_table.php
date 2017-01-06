@@ -34,6 +34,7 @@ class CreateCardsTable extends Migration
 
 
             // Card Values
+            $table->string('layout')->nullable();
             $table->string('manaCost')->nullable();
             $table->string('convertedManaCost')->nullable();
             $table->string('type')->nullable();
