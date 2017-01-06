@@ -5,5 +5,5 @@ Homestead.yaml
 /vendor
 /.idea
 .env
-*.json
+/resources/*.json
 /public/img/cards
