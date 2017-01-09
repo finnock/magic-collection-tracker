@@ -1,7 +1,7 @@
-@extends('layouts.content')
+@extends('layouts.content-fluid')
 
 @section('content')
     @include('components.setJumbotron')
 
-    @include('components.cards.list')
+    @include('components.cards.spoiler2')
 @endsection

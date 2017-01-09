@@ -1,6 +1,9 @@
 <table class="table table-striped">
     <thead>
     <tr>
+        @if(isset($count))
+            <th></th>
+        @endif
         <th></th>
         <th>Rarity</th>
         <th>Number</th>
@@ -11,11 +14,22 @@
     </tr>
     </thead>
     <tbody>
-        @foreach($set->cards as $card)
+        @foreach($cards as $card)
             <tr>
-                <td><img width="50" src="/img/cards/{{ $set->code }}/{{ $card->imageName }}.jpg"></td>
+                @if(isset($count))
+                    <td class="text-right" style="padding-right: 0;">
+                        @include('components.cardCountStack')
+                    </td>
+                    <td>
+                        <strong>{{ $card->pivot->count or '' }}</strong>
+                    </td>
+                @else
+                    <td>
+                        <img width="50" src="{{ $card->imagePath() }}">
+                    </td>
+                @endif
                 <td>
-                    @include('components.raritySymbol', ['setCode' => $set->code, 'rarity' => $card->rarity, 'options' => 'ss-2x ss-fw'])
+                    @include('components.raritySymbol', ['setCode' => $card->setCode, 'rarity' => $card->rarity, 'options' => 'ss-2x ss-fw'])
                 </td>
                 <td>{{ $card->number }}</td>
                 <td>{{ $card->name }}</td>

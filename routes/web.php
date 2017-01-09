@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 
+use App\Card;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,17 +28,14 @@ Route::group(['middleware' => ['web', 'auth']], function ()
     Route::resource('Set', 'SetController');
 
     Route::get('test', function(){
-        $card = App\Card::find('0fbb07e206c2f5609adfac15d802c10b4b475d74');
-        $user = App\User::find(1);
-        $card->users()->associate($user);
-
         return view('test');
     });
 
     Route::get('/Collection/Add', function (){
         $cards = Auth::user()->cards()->orderBy('updated_at', 'desc')->take(5)->get();
 
-        return view('user.collectionAdd')->with(compact('cards'));
+        $count = true;
+        return view('user.collectionAdd')->with(compact('cards', 'count'));
     });
 
     Route::post('/Collection/Add', function (Request $request) {
@@ -63,8 +62,9 @@ Route::group(['middleware' => ['web', 'auth']], function ()
 
     Route::get('/Collection', function (){
         $cards = Auth::user()->cards()->orderBy('created_at', 'desc')->get();
+        $count = true;
 
-        return view('user.collection')->with(['cards' => $cards]);
+        return view('user.collection')->with(compact('cards', 'count'));
     });
 
     Route::post('/Collection', function (Request $request){

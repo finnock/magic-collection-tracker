@@ -1,23 +1,8 @@
-@extends('layouts.bootstrap')
-
-@section('content')
-
-    <?php
-    $obj = json_decode(file_get_contents('C:\localhost\htdocs\json-to-mysql-master\SetList.json'), true, 1024);
-
-    dd($obj);
-
-    foreach ($obj['cards'] as $name => $card)
-    {
-        echo "<h3>$name</h3>";
-        foreach ($card as $key => $value)
-        {
-            if (!is_array($value))
-                echo "$key => $value <br>";
-            else
-                echo "$key => " . json_encode($value) . "<br>";
-        }
-    }
-    ?>
-
-@endsection
+<div style="display: inline-block; border: 1px solid green;">
+    <strong class="align-middle">3</strong>
+    <div style="position: relative; border: 1px solid red; display: inline-block; width: 130px; height: 142px;">
+            <img width="100" src="/img/cards/EVE/raven's crime.jpg" style="position: absolute; right: 30px;">
+            <img width="100" src="/img/cards/EVE/raven's crime.jpg" style="position: absolute; right: 15px;">
+            <img width="100" src="/img/cards/EVE/raven's crime.jpg" style="position: absolute; right: 0;">
+    </div>
+</div>

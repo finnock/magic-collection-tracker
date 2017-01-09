@@ -26,7 +26,9 @@ class SetController extends Controller
      */
     public function show($id)
     {
-        $set = Set::find($id);
-        return view('set.show')->with('set', $set);
+        $set = Set::with('cards.users')->find($id);
+        $cards = $set->cards;
+
+        return view('set.show')->with(compact('set', 'cards'));
     }
 }
