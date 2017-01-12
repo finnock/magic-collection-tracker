@@ -59,3 +59,11 @@ function singleCostToManaClass($singleCost)
     }
     return $class;
 }
+
+function isActive($url)
+{
+    if(Request::is($url))
+        return 'active';
+
+    return '';
+}

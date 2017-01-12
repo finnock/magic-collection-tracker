@@ -27,53 +27,25 @@ Route::group(['middleware' => ['web', 'auth']], function ()
     Route::resource('Card', 'CardController');
     Route::resource('Set', 'SetController');
 
+    Route::get('/Collection', 'CollectionController@index');
+    Route::get('/Collection/Add', 'CollectionController@add');
+    Route::post('/Collection', 'CollectionController@store');
+    Route::patch('/Collection/{id}', 'CollectionController@update');
+    Route::delete('/Collection/{id}', 'CollectionController@delete');
+
     Route::get('test', function(){
         return view('test');
     });
 
-    Route::get('/Collection/Add', function (){
-        $cards = Auth::user()->cards()->orderBy('updated_at', 'desc')->take(5)->get();
-
-        $count = true;
-        return view('user.collectionAdd')->with(compact('cards', 'count'));
-    });
-
-    Route::post('/Collection/Add', function (Request $request) {
-        $cardNumberSplit = explode(',', $request->all()['cardNumber']);
-
-        $card = \App\Card::where('setCode', $request->all()['setCode'])
-            ->where('number', $cardNumberSplit[0])
-            ->first();
-
-        $addCount = (isset($cardNumberSplit[1])) ? $cardNumberSplit[1] : 1;
-
-        if(Auth::user()->cards()->get()->contains($card->id))
-        {
-            $count = Auth::user()->cards()->find($card->id)->pivot->count;
-            Auth::user()->cards()->updateExistingPivot($card->id, ['count' => $count + $addCount]);
-        }else{
-            Auth::user()->cards()->attach($card->id, ['count' => $addCount]);
-        }
-
-        $cards = Auth::user()->cards()->orderBy('updated_at', 'desc')->take(5)->get();
-
-        return view('user.collectionAdd')->with(compact('card', 'request', 'cards'));
-    });
-
-    Route::get('/Collection', function (){
-        $cards = Auth::user()->cards()->orderBy('created_at', 'desc')->get();
-        $count = true;
-
-        return view('user.collection')->with(compact('cards', 'count'));
-    });
-
-    Route::post('/Collection', function (Request $request){
-        Auth::user()->cards()->attach($request->all()['cardID']);
-
-        return redirect('/Collection');
+    Route::get('/home', function () {
+        return redirect('/');
     });
 
     Route::get('/', function () {
         return view('home');
+    });
+
+    Route::get('/{url}', function () {
+        return redirect('/');
     });
 });

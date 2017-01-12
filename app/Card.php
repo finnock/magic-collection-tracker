@@ -54,4 +54,9 @@ class Card extends Model
         $imageName = $this->imageName;
         return "/img/cards/$code/$imageName.jpg";
     }
+
+    public static function backImagePath()
+    {
+        return "/img/cardback.jpg";
+    }
 }

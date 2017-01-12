@@ -2,13 +2,12 @@
     vertical-align: middle !important;
 }
 
-
 /*[class*="col-"] {
     background-color: rosybrown;
     border: 1px solid black;
 }*/
 
-.jumbotron{
+.jumbotron {
     padding: 30px 60px !important;
 }
 
@@ -30,4 +29,20 @@
     -ms-transform: rotate(90deg); /* IE 9 */
     -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
     transform: rotate(90deg);
+}
+
+#container {
+    margin-top: 10px;
+}
+
+.divider-vertical {
+    border: 2px solid grey;
+    width: 0;
+    margin: 10px 0;
+    border-right: 0px;
+}
+
+.navbar-brand{
+    padding: 10px;
+    margin: 0;
 }

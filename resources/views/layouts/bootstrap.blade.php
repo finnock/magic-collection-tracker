@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Collection tracker application for the trading card game magic the gathering. Not associated with wizards of the coast or magic tm.">
+    <meta name="author" content="Jan Oechsler">
 
     {{-- JQuery --}}
     <script src="/js/jquery-3.1.1.min.js"></script>
@@ -19,6 +19,9 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+
+    <!-- Font Awesome (Icons) -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
 
     {{-- Keyrune and Mana Font --}}
     <link href="/css/keyrune.css" rel="stylesheet" type="text/css" />
