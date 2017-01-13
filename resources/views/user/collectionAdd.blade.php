@@ -7,7 +7,7 @@
             <form action="{{ url('/Collection') }}" method="post" class="form">
                 {{ csrf_field() }}
                 <div class="form-inline row">
-                    <input type="text" class="form-control mx-sm-3" name="setCode" id="code" placeholder="Set Code" value="{{ $request->setCode or '' }}" style="margin: 5px 16px;">
+                    <input type="text" class="form-control mx-sm-3" name="setCode" id="code" placeholder="Set Code" value="{{ old('setCode') }}" style="margin: 5px 16px;">
                     <small class="text-muted">
                         Must be a valid SET Code. See <a href="/Sets">Sets</a> page for reference.
                     </small>
@@ -24,7 +24,7 @@
             </form>
         </div>
         <div class="col-sm-3">
-            <img style="width: 95%; margin: 10px;" src="{{ (isset($card)) ? $card->imagePath() : App\Card::backImagePath() }}">
+            <img style="width: 95%; margin: 10px;" src="{{ $cards->first()->imagePath() }}">
         </div>
     </div>
 

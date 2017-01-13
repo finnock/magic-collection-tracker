@@ -2,11 +2,6 @@
     vertical-align: middle !important;
 }
 
-/*[class*="col-"] {
-    background-color: rosybrown;
-    border: 1px solid black;
-}*/
-
 .jumbotron {
     padding: 30px 60px !important;
 }
@@ -15,7 +10,8 @@
     font-size: 10em !important;
 }
 
-.content {
+body {
+    margin-top: 60px;
 }
 
 .title {
@@ -45,4 +41,97 @@
 .navbar-brand{
     padding: 10px;
     margin: 0;
+}
+
+
+/* Card Element from Spoiler view-type */
+
+.mct-card{
+    margin: 5px 3px;
+}
+
+.mct-card .panel-body{
+    padding: 0;
+}
+
+.mct-card .mct-image{
+    width: 200px;
+}
+
+.mct-card .panel-footer, .mct-card .panel-heading{
+    padding: 0;
+}
+
+/* General usefull classes */
+
+img.fade-out{
+    opacity: 0.4;
+}
+
+.form-inline{
+    display: inline;
+}
+
+.d-flex{
+    display: flex!important;
+}
+
+.flex-wrap{
+    flex-wrap: wrap;
+}
+
+.justify-content-between{
+    justify-content: space-between;
+}
+
+/* Navbar */
+
+.navbar input {
+    background-color: #ddd;
+    color: #3D3D3D;
+    border: 1px solid #5D5D5D;
+    font-weight: bold;
+}
+
+.navbar .input-group span{
+    color: #ccc;
+    background-color: #7D7D7D;
+    border: 1px solid #5D5D5D;
+}
+
+@media (max-width: 991px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-left,.navbar-right {
+        float: none !important;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin-top: 7.5px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .collapse.in{
+        display:block !important;
+    }
 }

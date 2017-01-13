@@ -14,8 +14,10 @@ class SetController extends Controller
      */
     public function index()
     {
-        $sets = Set::expansionsAndCoreSets();
-        return view('set.index')->with('sets', $sets);
+        $cores = Set::cores();
+        $expansions = Set::expansions();
+
+        return view('set.index')->with(compact('cores', 'expansions'));
     }
 
     /**

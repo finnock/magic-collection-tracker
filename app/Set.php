@@ -40,5 +40,22 @@ class Set extends Model
             ->get();
     }
 
+
+    public static function expansions()
+    {
+        return Set::where('type', 'expansion')
+            ->where('releaseDate', '<=', '2015-01-23')
+            ->orderBy('releaseDate', 'desc')
+            ->get();
+    }
+
+    public static function cores()
+    {
+        return Set::where('type', 'core')
+            ->where('releaseDate', '<=', '2015-01-23')
+            ->orderBy('releaseDate', 'desc')
+            ->get();
+    }
+
     protected $table = 'sets';
 }

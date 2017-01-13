@@ -27,12 +27,6 @@
                     <p><i>{{ $card->flavor }}</i></p>
                 </div>
             </div>
-            <div class="row" style="margin-top: 20px;">
-                <div class="col-sm-12 well">
-                    <p>{{ $card->text }}</p>
-                    <p><i>{{ $card->flavor }}</i></p>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-sm-12">
                     @include('components.raritySymbol', ['setCode' => $card->setCode, 'rarity' => $card->rarity, 'options' => 'ss-2x ss-fw']) - {{ $card->numberNumeric }}

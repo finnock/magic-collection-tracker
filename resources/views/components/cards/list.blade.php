@@ -38,38 +38,35 @@
                     @include('components.costSymbols', ['cost' => $card->manaCost, 'options' => 'ms-cost ms-shadow'])
                 </td>
                 <td>
-                    <div class="row">
-                        <a class="btn btn-sm btn-secondary" href="/Card/{{ $card->getAttributes()['id'] }}">
+                        <a class="btn btn-sm btn-default" href="/Card/{{ $card->getAttributes()['id'] }}">
                             <i class="fa fa-folder-open"></i>&nbsp;Card
                         </a>
-                        <div class="btn-group">
-                            <form action="{{ url('/Collection/'.$card->getAttributes()['id']) }}" method="POST">
-                                {{ csrf_field() }}
-                                {{ method_field('PATCH') }}
-                                <input type="hidden" value="-1" name="count">
-                                <button type="submit" class="btn btn-sm btn-secondary" role="button">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </form>
 
-                            <form action="{{ url('/Collection/'.$card->getAttributes()['id']) }}" method="POST">
-                                {{ csrf_field() }}
-                                {{ method_field('PATCH') }}
-                                <input type="hidden" value="1" name="count">
-                                <button type="submit" class="btn btn-sm btn-secondary" role="button">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </form>
+                        <form class="form-inline" action="{{ url('/Collection/'.$card->getAttributes()['id']) }}" method="POST">
+                            {{ csrf_field() }}
+                            {{ method_field('PATCH') }}
+                            <input type="hidden" value="-1" name="count">
+                            <button type="submit" class="btn btn-sm btn-default" role="button">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </form>
 
-                            <form action="{{ url('/Collection/'.$card->getAttributes()['id']) }}" method="POST">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                                <button type="submit" class="btn btn-sm btn-danger" role="button">
-                                    <i class="fa fa-remove"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+                        <form class="form-inline" action="{{ url('/Collection/'.$card->getAttributes()['id']) }}" method="POST">
+                            {{ csrf_field() }}
+                            {{ method_field('PATCH') }}
+                            <input type="hidden" value="1" name="count">
+                            <button type="submit" class="btn btn-sm btn-default" role="button">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </form>
+
+                        <form class="form-inline" action="{{ url('/Collection/'.$card->getAttributes()['id']) }}" method="POST">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <button type="submit" class="btn btn-sm btn-danger" role="button">
+                                <i class="fa fa-remove"></i>
+                            </button>
+                        </form>
                 </td>
             </tr>
         @endforeach

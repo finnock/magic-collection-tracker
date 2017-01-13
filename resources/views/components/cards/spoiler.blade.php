@@ -1,22 +1,29 @@
-<?php $cardCollection = $set->cards; ?>
-
-@while(!$cardCollection->isEmpty())
-
-    <?php  // Take 4 cards annd remove them from the Collection
-        $cards = $cardCollection->take(8);
-        $cardCollection = $cardCollection->slice(8);
-    ?>
-
-    <!-- Display those 4 cards -->
-    <div class="card-deck" style="margin: 10px 0;">
-        @foreach($cards as $card)
-            <div class="card" style="width: 155px; margin: 0 5px;">
-                <img class="card-img-top img-fluid" src="{{ $card->imagePath() }}" alt="Card image of {{ $card->name }}">
-                <div class="card-footer">
-                    <small class="text-muted">{{ $card->name }}</small>
+<div class="d-flex flex-wrap justify-content-between" style="width: 100%;">
+    @foreach($cards as $card)
+        <?php
+        if(!$card->users->isEmpty())
+            $count = $card->users->where('id', Auth::id())->first()->pivot->count;
+        else
+            $count = false;
+        ?>
+            <div class="mct-card panel panel-default text-center">
+                <div class="panel-heading">
+                    @for($i = 0; $i < $count; $i++)
+                        <i class="fa fa-circle"></i>
+                    @endfor
+                    @if($count == 0)
+                        <span>&nbsp;</span>
+                    @endif
+                </div>
+                <div class="panel-body">
+                    <img class="mct-image {{ (!$count) ? 'fade-out' : '' }}" src="{{ $card->imagePath() }}" alt="Card image of {{ $card->name }}">
+                </div>
+                <div class="panel-footer">
+                    {{ ($count) ? $count : '-' }}
                 </div>
             </div>
-        @endforeach
-    </div>
-
-@endwhile
+    @endforeach
+    @for($i=0; $i < 10; $i++)
+        <div style="width: 200px; height: 0;"></div>
+    @endfor
+</div>

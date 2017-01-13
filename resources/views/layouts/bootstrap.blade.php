@@ -8,14 +8,9 @@
     <meta name="description" content="Collection tracker application for the trading card game magic the gathering. Not associated with wizards of the coast or magic tm.">
     <meta name="author" content="Jan Oechsler">
 
-    {{-- JQuery --}}
-    <script src="/js/jquery-3.1.1.min.js"></script>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-
-    <!-- Latest compiled and minified CSS -->
-    <script src="/js/bootstrap.min.js"></script>
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
@@ -38,7 +33,21 @@
 
 @include('navbar')
 
+
 @yield('container')
+
+{{-- JQuery --}}
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<script src="/js/bootstrap.min.js"></script>
+
+{{-- Auto hiding navbar --}}
+<script src="/js/jquery.bootstrap-autohidingnavbar.js"></script>
+<script>$("nav.navbar-fixed-top").autoHidingNavbar();</script>
+
+<!-- App.js compiled by laravel-mix -->
+<script src="/js/app.js"></script>
 
 </body>
 </html>

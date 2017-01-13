@@ -1,8 +1,8 @@
-<nav class="navbar navbar-inverse navbar-default">
+<nav class="navbar navbar-inverse navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -13,7 +13,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav" style="margin-right: 80px;">
 
                 <li class="{{ isActive('Set*') }}"><a href="{{ url('Set') }}">Set</a></li>
 
@@ -26,6 +26,35 @@
                 </li>
 
             </ul>
+
+
+            <div class="nav navbar-nav">
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"></i></span>
+                            <input type="text" class="form-control" placeholder="Search" style="width: 350px;">
+                        </div>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav">
+                    <li class="{{ isActive('Collection*') }} dropdown">
+                        <a href="/Collection" class="dropdown-toggle" data-toggle="dropdown" role="button">Filter <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="{{ isActive('Collection') }}"><a href="{{ url('/Collection') }}">Show</a></li>
+                            <li class="{{ isActive('Collection/Add') }}"><a href="{{ url('/Collection/Add') }}">Add</a></li>
+                        </ul>
+                    </li>
+                    <li class="{{ isActive('Collection*') }} dropdown">
+                        <a href="/Collection" class="dropdown-toggle" data-toggle="dropdown" role="button">Sort <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="{{ isActive('Collection') }}"><a href="{{ url('/Collection') }}">Show</a></li>
+                            <li class="{{ isActive('Collection/Add') }}"><a href="{{ url('/Collection/Add') }}">Add</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
 
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
@@ -54,6 +83,8 @@
                     </li>
                 @endif
             </ul>
+
+
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
