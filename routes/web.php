@@ -34,7 +34,27 @@ Route::group(['middleware' => ['web', 'auth']], function ()
     Route::delete('/Collection/{id}', 'CollectionController@delete');
 
     Route::get('test', function(){
-        return view('test');
+        $cards = Auth::user()->cards()->get();
+        $cardList = array();
+
+        foreach ($cards as $card){
+            $cardItem = new stdClass;
+            $cardItem->manaCost = $card->manaCost;
+            $cardItem->convertedManaCost = $card->convertedManaCost;
+            $cardItem->type = $card->type;
+            $cardItem->meta = json_decode($card->meta);
+            $cardItem->imageName = $card->imageName;
+            $cardItem->name = $card->name;
+            $cardItem->power = $card->power;
+            $cardItem->rarity = $card->rarity;
+            $cardItem->text = $card->text;
+            $cardItem->toughness = $card->toughness;
+            $cardItem->count = $card->pivot->count;
+            $cardItem->imagePath = $card->imagePath();
+            array_push($cardList, $cardItem);
+        }
+
+        return view('test')->with(compact('cardList'));
     });
 
     Route::get('/home', function () {

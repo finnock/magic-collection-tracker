@@ -24,6 +24,6 @@
             </div>
     @endforeach
     @for($i=0; $i < 10; $i++)
-        <div style="width: 200px; height: 0;"></div>
+        <div style="width: 200px; height: 0; margin: 5px 3px;"></div>
     @endfor
 </div>
