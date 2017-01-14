@@ -5,7 +5,7 @@
         <div class="col-sm-3"></div>
         <div class="col-sm-6">
             <div class="panel panel-default">
-                <div class="panel-heading">Collection of {{ Auth::user()->name }}</div>
+                <div class="panel-heading"><h3>Collection of {{ Auth::user()->name }}</h3></div>
                 <div class="panel-body">
                     <p>{{ Auth::user()->cards()->count() }} unique cards</p>
                     <p>{{ $cardCount }} cards in total</p>

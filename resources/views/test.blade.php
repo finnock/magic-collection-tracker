@@ -6,22 +6,26 @@
         <a href="#" class="btn btn-default" @click=" list = filterCreature ">Creature</a>
         <a href="#" class="btn btn-default" @click=" list = filterNonCreature ">Non Creature</a>
         <a href="#" class="btn btn-default" @click=" list = filteredList ">Apply Filter</a>
+        <span style="width: 100px;"></span>
+        <a href="#" class="btn btn-default" @click="sortNumberUp">Sort Number Up</a>
+        <a href="#" class="btn btn-default" @click="sortCmcUp">Sort CMC Up</a>
         <card-list :list="list" :list2="list2"></card-list>
     </div>
 
     <script src="/js/vue.js"></script>
+    <script src="/js/thenBy.js"></script>
 
     <template id="card-list">
         <div class="d-flex flex-wrap justify-content-between">
             <div class="mct-card panel panel-default text-center" v-for="card in list">
                 <div class="panel-heading">
-                    <span>&nbsp;</span>
+                    @{{ card.type }}
                 </div>
                 <div class="panel-body">
                     <img class="mct-image" :src="card.imagePath">
                 </div>
                 <div class="panel-footer">
-                    @{{ card.count }}
+                    @{{ card.count }} - @{{ card.code }}#@{{ card.number }}
                 </div>
             </div>
             <div style="width: 200px; height: 0; margin: 5px 3px;" v-for="card in list2"></div>
@@ -61,6 +65,10 @@
             },
 
             computed: {
+                cmcSort: function (){
+                    parseInt(this.convertedManaCost);
+                },
+
                 filteredList: function() {
                     return this.originalList.filter(function (card) {
                         for (var filterID = 0, filterCount = this.filterList.length; filterID < filterCount; filterID++) {
@@ -71,7 +79,6 @@
                     }.bind(this));
                 },
 
-
                 filterCreature: function() {
                     return this.originalList.filter(function (card) {
                         if (card.type.match(new RegExp('Creature')))
@@ -80,6 +87,7 @@
                         return (parseInt(a.convertedManaCost) - parseInt(b.convertedManaCost));
                     });
                 },
+
                 filterNonCreature: function() {
                     return this.originalList.filter(function (card) {
                         if (!card.type.match(/Creature/))
@@ -90,6 +98,20 @@
 
             mounted: function () {
                 this.list = this.originalList;
+            },
+
+            methods:{
+                sortNumberUp: function (){
+                    this.list = this.list.sort(function (a, b){
+                        return (parseInt(a.number) - parseInt(b.number));
+                    });
+                },
+
+                sortCmcUp: function (){
+                    this.list = this.list.sort(function (a, b){
+                        return (parseInt(a.cmcSort) - parseInt(b.cmcSort));
+                    });
+                }
             }
         });
     </script>

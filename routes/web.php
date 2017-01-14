@@ -51,6 +51,14 @@ Route::group(['middleware' => ['web', 'auth']], function ()
             $cardItem->toughness = $card->toughness;
             $cardItem->count = $card->pivot->count;
             $cardItem->imagePath = $card->imagePath();
+
+            $cardItem->cmcSort = ($card->convertedManaCost ?: 0);
+
+            $cardItem->number = $card->numberNumeric;
+            $cardItem->code = $card->setCode;
+
+
+
             array_push($cardList, $cardItem);
         }
 
