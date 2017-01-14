@@ -69,4 +69,18 @@ class CollectionController extends Controller
 
         return back();
     }
+
+    function dashboard()
+    {
+        $cards = Auth::user()->cards()->get();
+        $cardCount = 0;
+
+        foreach ($cards as $card)
+        {
+            $cardCount += $card->pivot->count;
+        }
+
+        return view('home')->with(compact('cardCount'));
+
+    }
 }

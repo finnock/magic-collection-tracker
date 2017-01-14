@@ -6,5 +6,25 @@ const app = new Vue({
 
     components: {
         'card-list' : Card
+
+    },
+
+    data : {
+        list: [
+            {type: 'red'},
+            {type: 'red'},
+            {type: 'red'},
+            {type: 'red'},
+            {type: 'red'},
+            {type: 'red'},
+
+            {type: 'green'},
+            {type: 'green'},
+            {type: 'green'},
+            {type: 'green'},
+            {type: 'green'},
+            {type: 'green'}
+
+        ]
     }
 });

@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex flex-wrap justify-content-between">
-        <div class="testElement red" v-for="card in list"></div>
+        <div class="testElement" :class="card.type" v-for="card in list"></div>
     </div>
 </template>
 
@@ -8,6 +8,7 @@
     .testElement{
         width: 100px;
         height: 100px;
+        margin: 5px;
     }
 
     .red{
@@ -24,15 +25,11 @@
     export default{
         data(){
             return{
-                list: [
-                    'red',
-                    'red',
-                    'green',
-                    'red',
-                    'green',
-                    'green'
-                ]
             }
+        },
+
+        props {
+            'list'
         }
     }
 </script>

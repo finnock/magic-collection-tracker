@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "webpack": "webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "webpack": "webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "dev": "webpack --progress --hide-modules --watch --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
     "bootstrap-sass": "^3.3.7",

@@ -41,9 +41,7 @@ Route::group(['middleware' => ['web', 'auth']], function ()
         return redirect('/');
     });
 
-    Route::get('/', function () {
-        return view('home');
-    });
+    Route::get('/', 'CollectionController@dashboard');
 
     Route::get('/{url}', function () {
         return redirect('/');
