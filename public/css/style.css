@@ -11,7 +11,7 @@
 }
 
 body {
-    margin-top: 60px;
+    margin-top: 80px;
 }
 
 .title {
@@ -39,10 +39,33 @@ body {
 }
 
 .navbar-brand{
-    padding: 10px;
-    margin: 0;
+    position: relative;
+    top: -3px;
 }
 
+.navbar-brand .ss{
+    margin-right: 5px;
+}
+
+/* SetSymbols */
+
+.table-striped > tbody > tr:nth-of-type(even) .ss-pill{
+    /*
+    background-color: #5D5D5D;
+    */
+    color: #dddddd;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) .ss-pill{
+    /*
+    background-color: #7D7D7D;
+    */
+    color: #dddddd;
+}
+
+.ss-dark.ss-common{
+    color: #dddddd;
+}
 
 /* Card Element from Spoiler view-type */
 
@@ -84,6 +107,13 @@ img.fade-out{
     justify-content: space-between;
 }
 
+/* Custom Panel Styles */
+
+.panel-heading h3{
+    margin: 5px 0;
+}
+
+
 /* Navbar */
 
 .navbar input {
@@ -97,6 +127,11 @@ img.fade-out{
     color: #ccc;
     background-color: #7D7D7D;
     border: 1px solid #5D5D5D;
+}
+
+/* Table Styles */
+th:last-child, td:last-child {
+    text-align: right;
 }
 
 @media (max-width: 991px) {

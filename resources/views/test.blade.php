@@ -13,7 +13,7 @@
     </div>
 
     <script src="/js/vue.js"></script>
-    <script src="/js/thenBy.js"></script>
+    {{--<script src="/js/thenBy.js"></script>--}}
 
     <template id="card-list">
         <div class="d-flex flex-wrap justify-content-between">

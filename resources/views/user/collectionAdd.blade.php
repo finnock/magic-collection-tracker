@@ -1,7 +1,7 @@
 @extends('layouts.content')
 
 @section('content')
-    <div class="row" style="margin: 50px 0;">
+    <div class="row" style="margin-bottom: 10px;">
         <div class="col-sm-9">
             <h3>Add Card</h3>
             <form action="{{ url('/Collection') }}" method="post" class="form">

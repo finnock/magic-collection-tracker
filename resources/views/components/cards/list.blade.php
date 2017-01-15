@@ -10,7 +10,7 @@
         <th>Name</th>
         <th>Type</th>
         <th>Cost</th>
-        <th>Actions</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@
                     </td>
                 @endif
                 <td>
-                    @include('components.raritySymbol', ['setCode' => $card->setCode, 'rarity' => $card->rarity, 'options' => 'ss-2x ss-fw'])
+                    @include('components.raritySymbol', ['setCode' => $card->setCode, 'rarity' => $card->rarity, 'options' => 'ss-2x ss-fw ss-dark'])
                 </td>
                 <td>{{ $card->number }}</td>
                 <td>{{ $card->name }}</td>

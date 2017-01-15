@@ -9,11 +9,11 @@
     <meta name="author" content="Jan Oechsler">
 
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- bootswatch:darkl https://bootswatch.com/darkly/bootstrap.css -->
+    <link rel="stylesheet" href="/css/bootstrap-darkly.css">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <!-- link rel="stylesheet" href="/css/bootstrap-theme.min.css --">
 
     <!-- Font Awesome (Icons) -->
     <link rel="stylesheet" href="/css/font-awesome.min.css">

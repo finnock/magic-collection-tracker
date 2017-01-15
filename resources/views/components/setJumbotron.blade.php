@@ -4,7 +4,7 @@
             <h1>{{ $set->name }}</h1>
         </div>
         <div class="col-sm-3">
-            @include('components.raritySymbol', ['setCode' => $set->code, 'rarity' => 'common', 'options' => 'ss-10x pull-right'])
+            @include('components.raritySymbol', ['setCode' => $set->code, 'rarity' => 'white', 'options' => 'ss-10x pull-right'])
         </div>
     </div>
     <div class="row" style="font-size: 1.3em;">
