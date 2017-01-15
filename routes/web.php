@@ -34,7 +34,7 @@ Route::group(['middleware' => ['web', 'auth']], function ()
     Route::delete('/Collection/{id}', 'CollectionController@delete');
 
     Route::get('test', function(){
-        $cards = Auth::user()->cards()->get();
+        $cards = Auth::user()->cards()->take(5)->get();
         $cardList = array();
 
         foreach ($cards as $card){
@@ -56,6 +56,7 @@ Route::group(['middleware' => ['web', 'auth']], function ()
 
             $cardItem->number = $card->numberNumeric;
             $cardItem->code = $card->setCode;
+            $cardItem->id = $card->id;
 
 
 

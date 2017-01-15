@@ -6,20 +6,24 @@
         <a href="#" class="btn btn-default" @click=" list = filterCreature ">Creature</a>
         <a href="#" class="btn btn-default" @click=" list = filterNonCreature ">Non Creature</a>
         <a href="#" class="btn btn-default" @click=" list = filteredList ">Apply Filter</a>
-        <span style="width: 100px;"></span>
-        <a href="#" class="btn btn-default" @click="sortNumberUp">Sort Number Up</a>
-        <a href="#" class="btn btn-default" @click="sortCmcUp">Sort CMC Up</a>
-        <card-list :list="list" :list2="list2"></card-list>
+
+        <a href="#" class="btn btn-default" @click=" sortFunction = 'sf_sortNone' " style="margin-left: 100px;">Reset Sort</a>
+        <a href="#" class="btn btn-default" @click=" sortFunction = 'sf_sortNumberUp' ">Sort Number Up</a>
+        <a href="#" class="btn btn-default" @click=" sortFunction = 'sf_sortCmcUp' ">Sort CMC Up</a>
+
+
+        <card-list :list="sortedList" :list2="list2"></card-list>
     </div>
 
     <script src="/js/vue.js"></script>
-    {{--<script src="/js/thenBy.js"></script>--}}
+    <script src="/js/thenBy.js"></script>
+    <script src="/js/lodash.js"></script>
 
     <template id="card-list">
         <div class="d-flex flex-wrap justify-content-between">
             <div class="mct-card panel panel-default text-center" v-for="card in list">
                 <div class="panel-heading">
-                    @{{ card.type }}
+                    <span>&nbsp;</span>{{--@{{ card.type }}--}}
                 </div>
                 <div class="panel-body">
                     <img class="mct-image" :src="card.imagePath">
@@ -60,8 +64,10 @@
                 ],
 
                 filterList: [
-                    {field : 'type', value : 'Elf'}
-                ]
+                    {function : 'ff_subType', params: {subType: 'Human'}}
+                ],
+
+                sortFunction: 'sf_sortNone'
             },
 
             computed: {
@@ -70,13 +76,11 @@
                 },
 
                 filteredList: function() {
-                    return this.originalList.filter(function (card) {
-                        for (var filterID = 0, filterCount = this.filterList.length; filterID < filterCount; filterID++) {
-                            if (card[this.filterList[filterID].field].match(new RegExp(this.filterList[filterID].value)))
-                                return true;
-                        };
-                        return false;
-                    }.bind(this));
+                    list = this.originalList;
+                    for (var i = 0, len = this.filterList.length; i < len; i++) {
+                        list = list.filter(window[this.filterList[i].function](window[this.filterList[i].params]));
+                    }
+                    return list;
                 },
 
                 filterCreature: function() {
@@ -93,26 +97,39 @@
                         if (!card.type.match(/Creature/))
                             return true;
                     });
+                },
+
+                sortedList: function () {
+                    return this.list.sort(
+                        firstBy(window[this.sortFunction])
+                            .thenBy('name')
+                    );
                 }
             },
 
             mounted: function () {
                 this.list = this.originalList;
-            },
-
-            methods:{
-                sortNumberUp: function (){
-                    this.list = this.list.sort(function (a, b){
-                        return (parseInt(a.number) - parseInt(b.number));
-                    });
-                },
-
-                sortCmcUp: function (){
-                    this.list = this.list.sort(function (a, b){
-                        return (parseInt(a.cmcSort) - parseInt(b.cmcSort));
-                    });
-                }
             }
         });
+
+        function sf_sortNumberUp(cardA, cardB) {
+            return (parseInt(cardA.number) - parseInt(cardB.number));
+        }
+
+        function sf_sortCmcUp(cardA, cardB) {
+            return (parseInt(cardA.cmcSort) - parseInt(cardB.cmcSort));
+        }
+
+        function sf_sortNone(cardA, cardB) {
+            return 0;
+        }
+
+        function ff_subType(filterObject){
+            return function(card){
+                console.log(card.meta.subtypes);
+                console.log(filterObject.subType);
+                return _.includes(card.meta.subtypes, filterObject.subType)
+            }
+        }
     </script>
 @endsection

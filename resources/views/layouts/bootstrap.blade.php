@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Collection tracker application for the trading card game magic the gathering. Not associated with wizards of the coast or magic tm.">
     <meta name="author" content="Jan Oechsler">
@@ -11,9 +12,6 @@
 
     <!-- bootswatch:darkl https://bootswatch.com/darkly/bootstrap.css -->
     <link rel="stylesheet" href="/css/bootstrap-darkly.css">
-
-    <!-- Optional theme -->
-    <!-- link rel="stylesheet" href="/css/bootstrap-theme.min.css --">
 
     <!-- Font Awesome (Icons) -->
     <link rel="stylesheet" href="/css/font-awesome.min.css">
