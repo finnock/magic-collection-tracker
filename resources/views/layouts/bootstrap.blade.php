@@ -31,11 +31,10 @@
 
 <body>
 
-@include('navbar')
-
-
-@yield('container')
-
+<div id="app">
+    @include('navbar')
+    @yield('container')
+</div>
 
 <!-- Latest compiled and minified CSS -->
 <script src="/js/bootstrap.min.js"></script>

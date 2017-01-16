@@ -1,7 +1,7 @@
 @extends('layouts.content-fluid')
 
 @section('content')
-    <div id="app">
+    <div>
         <a href="#" class="btn btn-default" @click=" list = originalList ">Reset</a>
         <a href="#" class="btn btn-default" @click=" list = filterCreature ">Creature</a>
         <a href="#" class="btn btn-default" @click=" list = filterNonCreature ">Non Creature</a>
@@ -10,6 +10,8 @@
         <a href="#" class="btn btn-default" @click=" sortFunction = 'sf_sortNone' " style="margin-left: 100px;">Reset Sort</a>
         <a href="#" class="btn btn-default" @click=" sortFunction = 'sf_sortNumberUp' ">Sort Number Up</a>
         <a href="#" class="btn btn-default" @click=" sortFunction = 'sf_sortCmcUp' ">Sort CMC Up</a>
+        <a href="#" class="btn btn-default" @click=" sortFunction = 'sf_sortColor' ">Sort Color</a>
+
 
 
         <card-list :list="sortedList" :list2="list2"></card-list>
@@ -64,7 +66,7 @@
                 ],
 
                 filterList: [
-                    {function : 'ff_subType', params: {subType: 'Human'}}
+                    {function : 'ff_name', params: {pattern: 'Breath'}}
                 ],
 
                 sortFunction: 'sf_sortNone'
@@ -78,7 +80,8 @@
                 filteredList: function() {
                     list = this.originalList;
                     for (var i = 0, len = this.filterList.length; i < len; i++) {
-                        list = list.filter(window[this.filterList[i].function](window[this.filterList[i].params]));
+                        var item = this.filterList[i];
+                        list = list.filter(window[item.function](item.params));
                     }
                     return list;
                 },
@@ -124,11 +127,59 @@
             return 0;
         }
 
+        function sf_sortColor(cardA, cardB) {
+            return (sf_sortColor_colorValueAssign(cardA) - sf_sortColor_colorValueAssign(cardB));
+        }
+
+        function sf_sortColor_colorValueAssign(card) {
+            if('colors' in card.meta){
+                if(card.meta.colors.length == 1){
+                    if(_.includes(card.meta.colors, 'White')){ return 0; }
+                    if(_.includes(card.meta.colors, 'Blue' )){ return 1; }
+                    if(_.includes(card.meta.colors, 'Black')){ return 2; }
+                    if(_.includes(card.meta.colors, 'Red'  )){ return 3; }
+                    if(_.includes(card.meta.colors, 'Green')){ return 4; }
+                }
+                if(card.meta.colors.length == 2) {
+                    if(_.includes(card.meta.colors, 'White') && _.includes(card.meta.colors, 'Blue')){ return 5; }
+                    if(_.includes(card.meta.colors, 'Blue') && _.includes(card.meta.colors, 'Black')){ return 6; }
+                    if(_.includes(card.meta.colors, 'Black') && _.includes(card.meta.colors, 'Red')){ return 7; }
+                    if(_.includes(card.meta.colors, 'Red') && _.includes(card.meta.colors, 'Green')){ return 8; }
+                    if(_.includes(card.meta.colors, 'Green') && _.includes(card.meta.colors, 'White')){ return 9; }
+
+                    if(_.includes(card.meta.colors, 'White') && _.includes(card.meta.colors, 'Black')){ return 10; }
+                    if(_.includes(card.meta.colors, 'Blue') && _.includes(card.meta.colors, 'Red')){ return 11; }
+                    if(_.includes(card.meta.colors, 'Black') && _.includes(card.meta.colors, 'Green')){ return 12; }
+                    if(_.includes(card.meta.colors, 'Red') && _.includes(card.meta.colors, 'White')){ return 13; }
+                    if(_.includes(card.meta.colors, 'Green') && _.includes(card.meta.colors, 'Blue')){ return 14; }
+                }
+                if(card.meta.colors.length >= 3) {
+                    return 15;
+                }
+            }else{
+                if(_.includes(card.meta.types, 'Land')){
+                    return 17;
+                }else{
+                    return 16;
+                }
+            }
+        }
+
         function ff_subType(filterObject){
             return function(card){
-                console.log(card.meta.subtypes);
-                console.log(filterObject.subType);
                 return _.includes(card.meta.subtypes, filterObject.subType)
+            }
+        }
+
+        function ff_type(filterObject){
+            return function(card){
+                return _.includes(card.meta.types, filterObject.type)
+            }
+        }
+
+        function ff_name(filterObject){
+            return function(card){
+                return card.name.match(new RegExp(filterObject.pattern));
             }
         }
     </script>

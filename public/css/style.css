@@ -47,6 +47,38 @@ body {
     margin-right: 5px;
 }
 
+/* Custom Navbar Stuff */
+.dropdown-btn-menu{
+    padding: 10px;
+    margin: 0;
+}
+
+.dropdown-btn-menu .btn{
+    margin: 3px 0;
+    width: 100%;
+    padding: 1px;
+}
+
+.dropdown-pill-menu{
+    padding: 10px;
+    margin: 0;
+    background-color: #5D5D5D;
+}
+
+.filter-pill{
+    background-color: #3d3d3d;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    margin: 3px 0;
+}
+
+.filter-pill .fa{
+    color: #dd0000;
+    position: absolute;
+    right: 5px;
+    top: 2px;
+}
 /* SetSymbols */
 
 .table-striped > tbody > tr:nth-of-type(even) .ss-pill{

@@ -47,9 +47,19 @@
                     </li>
                     <li class="{{ isActive('Collection*') }} dropdown">
                         <a href="/Collection" class="dropdown-toggle" data-toggle="dropdown" role="button">Sort <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li class="{{ isActive('Collection') }}"><a href="{{ url('/Collection') }}">Show</a></li>
-                            <li class="{{ isActive('Collection/Add') }}"><a href="{{ url('/Collection/Add') }}">Add</a></li>
+                        <ul class="dropdown-menu" style="padding: 0;">
+                            <div class="dropdown-btn-menu">
+                                <li><a class="btn btn-sm btn-default" href="#" @click="sortFunction = 'sf_sortNumberUp'">Number</a></li>
+                                <li><a class="btn btn-sm btn-default" href="#" @click="sortFunction = 'sf_sortCmcUp'">Converted Mana Cost</a></li>
+                                <li><a class="btn btn-sm btn-default" href="#" @click="sortFunction = 'sf_sortColor'">Color</a></li>
+                                <li><a class="btn btn-sm btn-default" href="#" @click="">Power</a></li>
+                                <li><a class="btn btn-sm btn-default" href="#" @click="">Toughness</a></li>
+                            </div>
+                            <div class="dropdown-pill-menu">
+                                <div class="img-rounded filter-pill">Color <i class="fa fa-times"></i></div>
+                                <div class="img-rounded filter-pill">CMC <i class="fa fa-times"></i></div>
+                                <div class="img-rounded filter-pill">Default: Name</i></div>
+                            </div>
                         </ul>
                     </li>
                 </ul>
