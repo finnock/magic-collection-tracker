@@ -40,7 +40,7 @@ name "name"
 type "type"
   = 't:' '"' type:([a-zA-Z ]+) '"' {return options.type.match(new RegExp(type.join(''), 'gi'));}
   / 't:'     type:[a-zA-Z]+        {return options.type.match(new RegExp(type.join(''), 'gi'));}
-http://mct.dev/test#
+
 text "text"
   = 'o:' '"' text:([a-zA-Z ]+) '"' {return options.text.match(new RegExp(text.join(''), 'gi'));}
   / 'o:'     text:[a-zA-Z]+        {return options.text.match(new RegExp(text.join(''), 'gi'));}</textarea>
