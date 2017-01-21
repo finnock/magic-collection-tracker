@@ -47,7 +47,7 @@ Route::group(['middleware' => ['web', 'auth']], function ()
             $cardItem->name = $card->name;
             $cardItem->power = $card->power;
             $cardItem->rarity = $card->rarity;
-            $cardItem->text = $card->text;
+            $cardItem->text = ($card->text ?: '');
             $cardItem->toughness = $card->toughness;
             $cardItem->count = $card->pivot->count;
             $cardItem->imagePath = $card->imagePath();
@@ -62,31 +62,6 @@ Route::group(['middleware' => ['web', 'auth']], function ()
         }
 
         return view('test')->with(compact('cardList'));
-    });
-
-    Route::get('peg', function(){
-        $card = Card::find('97b663739a106becf8c4da80941a619460dcdaf1');
-        $cardItem = new stdClass;
-        $cardItem->manaCost = $card->manaCost;
-        $cardItem->convertedManaCost = $card->convertedManaCost;
-        $cardItem->type = $card->type;
-        $cardItem->meta = json_decode($card->meta);
-        $cardItem->imageName = $card->imageName;
-        $cardItem->name = $card->name;
-        $cardItem->power = $card->power;
-        $cardItem->rarity = $card->rarity;
-        $cardItem->text = $card->text;
-        $cardItem->toughness = $card->toughness;
-        $cardItem->imagePath = $card->imagePath();
-
-        $cardItem->cmcSort = ($card->convertedManaCost ?: 0);
-
-        $cardItem->number = $card->numberNumeric;
-        $cardItem->code = $card->setCode;
-        $cardItem->id = $card->id;
-
-
-        return view('peg')->with(compact('cardItem'));
     });
 
     Route::get('/home', function () {

@@ -17,12 +17,11 @@ start
   = summand:summand ' '* { return Boolean(summand); }
 
 summand
-  = left:faktor " or " right:summand { return left || right; }
+  = left:faktor " | " right:summand { return left || right; }
   / faktor
 
 faktor
-  = left:token ' and ' right:faktor { return left && right; }
-  / left:token ' '+ right:faktor { return left && right; }
+  = left:token ' ' right:faktor { return left && right; }
   / assembly
 
 assembly
@@ -30,8 +29,21 @@ assembly
   / "(" summand:summand ")" { return summand; }
 
 token "token"
-  = name:[a-zA-Z]* {return options.name.match(new RegExp(name.join('')));}
-        </textarea>
+  = text
+  / type
+  / name
+
+name "name"
+  =      '"' name:([a-zA-Z ]+) '"' {return options.name.match(new RegExp(name.join(''), 'gi'));}
+  /      name:[a-zA-Z]+            {return options.name.match(new RegExp(name.join(''), 'gi'));}
+
+type "type"
+  = 't:' '"' type:([a-zA-Z ]+) '"' {return options.type.match(new RegExp(type.join(''), 'gi'));}
+  / 't:'     type:[a-zA-Z]+        {return options.type.match(new RegExp(type.join(''), 'gi'));}
+http://mct.dev/test#
+text "text"
+  = 'o:' '"' text:([a-zA-Z ]+) '"' {return options.text.match(new RegExp(text.join(''), 'gi'));}
+  / 'o:'     text:[a-zA-Z]+        {return options.text.match(new RegExp(text.join(''), 'gi'));}</textarea>
     </div>
     <a href="#" id="refresh-btn" class="btn btn-primary">Refresh</a>
 
@@ -74,6 +86,12 @@ token "token"
 
     <script>
         var parser = PEG.buildParser($('#grammar').val());
+
+        $('#refresh-btn').click(function() {
+            parser = PEG.buildParser($('#grammar').val());
+
+            console.log($('#grammar').val());
+        });
 
         Vue.component('card-list', {
            template: '#card-list',
