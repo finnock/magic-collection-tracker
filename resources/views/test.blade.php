@@ -1,7 +1,41 @@
 @extends('layouts.content-fluid')
 
 @section('content')
-    <div>
+
+
+    <script src="/js/peg-0.9.0.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <div class="form-group">
+        <label for="usr">Query:</label>
+        <input type="text" class="form-control" id="query" value="Akki">
+    </div>
+    <div class="form-group">
+        <label for="comment">Grammar:</label>
+        <textarea class="form-control" style="height: 600px; font-family:monospace;" id="grammar">
+start
+  = summand:summand ' '* { return Boolean(summand); }
+
+summand
+  = left:faktor " or " right:summand { return left || right; }
+  / faktor
+
+faktor
+  = left:token ' and ' right:faktor { return left && right; }
+  / left:token ' '+ right:faktor { return left && right; }
+  / assembly
+
+assembly
+  = token
+  / "(" summand:summand ")" { return summand; }
+
+token "token"
+  = name:[a-zA-Z]* {return options.name.match(new RegExp(name.join('')));}
+        </textarea>
+    </div>
+    <a href="#" id="refresh-btn" class="btn btn-primary">Refresh</a>
+
+    <div id="app">
         <a href="#" class="btn btn-default" @click=" list = originalList ">Reset</a>
         <a href="#" class="btn btn-default" @click=" list = filterCreature ">Creature</a>
         <a href="#" class="btn btn-default" @click=" list = filterNonCreature ">Non Creature</a>
@@ -16,7 +50,6 @@
 
         <card-list :list="sortedList" :list2="list2"></card-list>
     </div>
-
     <script src="/js/vue.js"></script>
     <script src="/js/thenBy.js"></script>
     <script src="/js/lodash.js"></script>
@@ -40,6 +73,8 @@
 
 
     <script>
+        var parser = PEG.buildParser($('#grammar').val());
+
         Vue.component('card-list', {
            template: '#card-list',
 
@@ -54,6 +89,7 @@
             },*/
 
             data : {
+                parser: parser,
 
                 list: [],
 
@@ -65,10 +101,6 @@
                     '1', '1', '1', '1', '1', '1', '1', '1', '1'
                 ],
 
-                filterList: [
-                    {function : 'ff_name', params: {pattern: 'Breath'}}
-                ],
-
                 sortFunction: 'sf_sortNone'
             },
 
@@ -78,27 +110,8 @@
                 },
 
                 filteredList: function() {
-                    list = this.originalList;
-                    for (var i = 0, len = this.filterList.length; i < len; i++) {
-                        var item = this.filterList[i];
-                        list = list.filter(window[item.function](item.params));
-                    }
-                    return list;
-                },
-
-                filterCreature: function() {
-                    return this.originalList.filter(function (card) {
-                        if (card.type.match(new RegExp('Creature')))
-                            return true;
-                    }).sort(function (a, b){
-                        return (parseInt(a.convertedManaCost) - parseInt(b.convertedManaCost));
-                    });
-                },
-
-                filterNonCreature: function() {
-                    return this.originalList.filter(function (card) {
-                        if (!card.type.match(/Creature/))
-                            return true;
+                    return this.originalList.filter(function(card){
+                        return parser.parse($('#query').val(), card);
                     });
                 },
 
@@ -162,24 +175,6 @@
                 }else{
                     return 16;
                 }
-            }
-        }
-
-        function ff_subType(filterObject){
-            return function(card){
-                return _.includes(card.meta.subtypes, filterObject.subType)
-            }
-        }
-
-        function ff_type(filterObject){
-            return function(card){
-                return _.includes(card.meta.types, filterObject.type)
-            }
-        }
-
-        function ff_name(filterObject){
-            return function(card){
-                return card.name.match(new RegExp(filterObject.pattern));
             }
         }
     </script>

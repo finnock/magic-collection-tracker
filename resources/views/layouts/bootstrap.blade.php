@@ -31,7 +31,7 @@
 
 <body>
 
-<div id="app">
+<div id="">
     @include('navbar')
     @yield('container')
 </div>
