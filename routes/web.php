@@ -33,7 +33,15 @@ Route::group(['middleware' => ['web', 'auth']], function ()
     Route::patch('/Collection/{id}', 'CollectionController@update');
     Route::delete('/Collection/{id}', 'CollectionController@delete');
 
-    Route::get('test', function(){
+    Route::get('/test', function(){
+        return view('test');
+    });
+
+    Route::get('/component', function(){
+        return view('component');
+    });
+
+    Route::get('/ajax/collection', function (Request $request) {
         $cards = Auth::user()->cards()->get();
         $cardList = array();
 
@@ -61,7 +69,7 @@ Route::group(['middleware' => ['web', 'auth']], function ()
             array_push($cardList, $cardItem);
         }
 
-        return view('test')->with(compact('cardList'));
+        return $cardList;
     });
 
     Route::get('/home', function () {

@@ -29,31 +29,19 @@
 
 
             <div class="nav navbar-nav">
-                <form class="navbar-form navbar-left">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"></i></span>
-                            <input type="text" class="form-control" placeholder="Search" style="width: 350px;">
-                        </div>
-                    </div>
-                </form>
+                <div class="navbar-form navbar-left">
+
+                </div>
                 <ul class="nav navbar-nav">
-                    <li class="{{ isActive('Collection*') }} dropdown">
-                        <a href="/Collection" class="dropdown-toggle" data-toggle="dropdown" role="button">Filter <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li class="{{ isActive('Collection') }}"><a href="{{ url('/Collection') }}">Show</a></li>
-                            <li class="{{ isActive('Collection/Add') }}"><a href="{{ url('/Collection/Add') }}">Add</a></li>
-                        </ul>
-                    </li>
                     <li class="{{ isActive('Collection*') }} dropdown">
                         <a href="/Collection" class="dropdown-toggle" data-toggle="dropdown" role="button">Sort <span class="caret"></span></a>
                         <ul class="dropdown-menu" style="padding: 0;">
                             <div class="dropdown-btn-menu">
-                                <li><a class="btn btn-sm btn-default" href="#" @click="sortFunction = 'sf_sortNumberUp'">Number</a></li>
-                                <li><a class="btn btn-sm btn-default" href="#" @click="sortFunction = 'sf_sortCmcUp'">Converted Mana Cost</a></li>
-                                <li><a class="btn btn-sm btn-default" href="#" @click="sortFunction = 'sf_sortColor'">Color</a></li>
-                                <li><a class="btn btn-sm btn-default" href="#" @click="">Power</a></li>
-                                <li><a class="btn btn-sm btn-default" href="#" @click="">Toughness</a></li>
+                                <li><a class="btn btn-sm btn-default" @click="sortFunction = 'sf_sortNumberUp'">Number</a></li>
+                                <li><a class="btn btn-sm btn-default" @click="sortFunction = 'sf_sortCmcUp'">Converted Mana Cost</a></li>
+                                <li><a class="btn btn-sm btn-default" @click="sortFunction = 'sf_sortColor'">Color</a></li>
+                                <li><a class="btn btn-sm btn-default" @click="">Power</a></li>
+                                <li><a class="btn btn-sm btn-default" @click="">Toughness</a></li>
                             </div>
                             <div class="dropdown-pill-menu">
                                 <div class="img-rounded filter-pill">Color <i class="fa fa-times"></i></div>

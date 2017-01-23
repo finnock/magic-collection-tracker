@@ -47,6 +47,53 @@ body {
     margin-right: 5px;
 }
 
+/* Custom Tab Input */
+
+
+.tab-input{
+    border-bottom: 1px solid #0ce3ac;
+}
+
+.tab-input input{
+    color: white;
+    padding: 3px;
+    background-color: transparent;
+}
+
+.tab-label span{
+    margin: 3px;
+    display: inline-block;
+}
+
+.tab-label .fa{
+    margin-left: 10px;
+    display: none;
+}
+
+.tab-input input:focus{
+    outline: none;
+}
+
+.tab-input .fa, .tab-label .fa {
+    color: white;
+}
+
+.tab-input .fa:hover, .tab-label .fa:hover{
+    color: #0ce3ac;
+}
+
+li.active .tab-label span{
+    cursor: text;
+}
+
+li.active .tab-label{
+    border-bottom: 1px solid #0ce3ac
+}
+
+li.active .tab-label .fa{
+    display: inline;
+}
+
 /* Custom Navbar Stuff */
 .dropdown-btn-menu{
     padding: 10px;
@@ -119,6 +166,10 @@ body {
 
 /* General usefull classes */
 
+a i.fa{
+    cursor: pointer;
+}
+
 img.fade-out{
     opacity: 0.4;
 }
@@ -145,8 +196,15 @@ img.fade-out{
     margin: 5px 0;
 }
 
-
 /* Navbar */
+
+#searchbtn:hover{
+    cursor: pointer;
+}
+
+#refreshbtn:hover{
+    cursor: pointer;
+}
 
 .navbar input {
     background-color: #ddd;

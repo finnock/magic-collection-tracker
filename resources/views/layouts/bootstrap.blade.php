@@ -31,10 +31,12 @@
 
 <body>
 
-<div id="">
+<div id="app">
     @include('navbar')
     @yield('container')
 </div>
+
+@yield('script')
 
 <!-- Latest compiled and minified CSS -->
 <script src="/js/bootstrap.min.js"></script>
@@ -42,6 +44,7 @@
 {{-- Auto hiding navbar --}}
 <script src="/js/jquery.bootstrap-autohidingnavbar.js"></script>
 <script>$("nav.navbar-fixed-top").autoHidingNavbar();</script>
+
 
 </body>
 </html>
