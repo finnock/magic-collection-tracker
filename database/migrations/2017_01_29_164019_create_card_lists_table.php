@@ -4,21 +4,22 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCardUserTable extends Migration
+class CreateCardListsTable extends Migration
 {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up(){
-        Schema::create('card_user', function (Blueprint $table) {
+    public function up()
+    {
+        Schema::create('card_lists', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('card_id');
-            $table->integer('user_id');
-
-            $table->integer('count')->default(1);
             $table->timestamps();
+
+            $table->string('user_id');
+            $table->string('name');
+            $table->string('type');
         });
     }
 
@@ -29,6 +30,6 @@ class CreateCardUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('card_user');
+        Schema::dropIfExists('card_lists');
     }
 }

@@ -33,6 +33,8 @@ Route::group(['middleware' => ['web', 'auth']], function ()
     Route::patch('/Collection/{id}', 'CollectionController@update');
     Route::delete('/Collection/{id}', 'CollectionController@delete');
 
+    /* Testing Routes */
+
     Route::get('/test', function(){
         return view('test');
     });
@@ -40,6 +42,12 @@ Route::group(['middleware' => ['web', 'auth']], function ()
     Route::get('/component', function(){
         return view('component');
     });
+
+    Route::get('/label', function(){
+        return view('label');
+    });
+
+    /* End of Testing Routes */
 
     Route::get('/ajax/collection', function (Request $request) {
         $cards = Auth::user()->cards()->get();

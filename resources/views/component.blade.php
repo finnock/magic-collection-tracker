@@ -93,8 +93,8 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <span class="input-group-addon" id="searchbtn" v-on:click="filterList"><i class="fa fa-search"></i></span>
-                            <input type="text" class="form-control" placeholder="Search" v-model="filterString" v-on:keyUp="filterList" style="width: 1000px;">
+                            <span class="input-group-addon" id="searchbtn" v-on:click="filter"><i class="fa fa-search"></i></span>
+                            <input type="text" class="form-control" placeholder="Search" v-model="filterString" v-on:keyup.enter="filter" style="width: 1000px;">
                             <span class="input-group-addon">@{{ cardCount }} / @{{ allCardCount }}</span>
                         </div>
                     </div>
@@ -113,18 +113,11 @@
                             @{{ card.count }} - @{{ card.code }}#@{{ card.number }}
                         </div>
                     </div>
-                    <div style="width: 200px; height: 0; margin: 5px 3px;" v-for="card in dummyList"></div>
+                    <div style="width: 220px; height: 0; margin: 5px 3px;" v-for="card in dummyList"></div>
                 </div>
             </div>
         </div>
     </template>
-
-    <script src="/js/peg-0.9.0.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-    <script src="/js/vue.js"></script>
-    <script src="/js/thenBy.js"></script>
-    <script src="/js/lodash.js"></script>
 
     <script>
 
@@ -144,13 +137,8 @@
                 return {
                     dummyList: [ '1', '1', '1', '1', '1', '1', '1', '1', '1' ],
                     sortFunction: 'sf_sortColor',
-                    filterString: ''
-                }
-            },
-
-            methods: {
-                filterList: function(event) {
-                    if(event) event.preventDefault();
+                    filterString: '',
+                    filteredList: []
                 }
             },
 
@@ -163,17 +151,22 @@
                     return this.list.length;
                 },
 
-                filteredList: function() {
-                    return this.list.filter(function(card){
-                        return parser.parse(this.filterString, card);
-                    }.bind(this));
-                },
-
                 sortedList: function () {
                     return this.filteredList.sort(
                         firstBy(window[this.sortFunction])
                             .thenBy('name')
                     );
+                }
+            },
+
+            methods: {
+                filter: function(){
+                    this.filteredList =  this.list.filter(function(card){
+                        try {
+                            return parser.parse(this.filterString, card);
+                        }
+                        catch (error){}
+                    }.bind(this));
                 }
             }
         });
@@ -207,83 +200,7 @@
             }
         });
 
-        function sf_sortNumberUp(cardA, cardB) {
-            return (parseInt(cardA.number) - parseInt(cardB.number));
-        }
 
-        function sf_sortCmcUp(cardA, cardB) {
-            return (parseInt(cardA.cmcSort) - parseInt(cardB.cmcSort));
-        }
-
-        function sf_sortNone(cardA, cardB) {
-            return 0;
-        }
-
-        function sf_sortColor(cardA, cardB) {
-            return (sf_sortColor_colorValueAssign(cardA) - sf_sortColor_colorValueAssign(cardB));
-        }
-
-        function sf_sortColor_colorValueAssign(card) {
-            if('colors' in card.meta){
-                if(card.meta.colors.length == 1){
-                    if(_.includes(card.meta.colors, 'White')){ return 0; }
-                    if(_.includes(card.meta.colors, 'Blue' )){ return 1; }
-                    if(_.includes(card.meta.colors, 'Black')){ return 2; }
-                    if(_.includes(card.meta.colors, 'Red'  )){ return 3; }
-                    if(_.includes(card.meta.colors, 'Green')){ return 4; }
-                }
-                if(card.meta.colors.length == 2) {
-                    if(_.includes(card.meta.colors, 'White') && _.includes(card.meta.colors, 'Blue')){ return 5; }
-                    if(_.includes(card.meta.colors, 'Blue') && _.includes(card.meta.colors, 'Black')){ return 6; }
-                    if(_.includes(card.meta.colors, 'Black') && _.includes(card.meta.colors, 'Red')){ return 7; }
-                    if(_.includes(card.meta.colors, 'Red') && _.includes(card.meta.colors, 'Green')){ return 8; }
-                    if(_.includes(card.meta.colors, 'Green') && _.includes(card.meta.colors, 'White')){ return 9; }
-
-                    if(_.includes(card.meta.colors, 'White') && _.includes(card.meta.colors, 'Black')){ return 10; }
-                    if(_.includes(card.meta.colors, 'Blue') && _.includes(card.meta.colors, 'Red')){ return 11; }
-                    if(_.includes(card.meta.colors, 'Black') && _.includes(card.meta.colors, 'Green')){ return 12; }
-                    if(_.includes(card.meta.colors, 'Red') && _.includes(card.meta.colors, 'White')){ return 13; }
-                    if(_.includes(card.meta.colors, 'Green') && _.includes(card.meta.colors, 'Blue')){ return 14; }
-                }
-                if(card.meta.colors.length >= 3) {
-                    return 15;
-                }
-            }else{
-                if(_.includes(card.meta.types, 'Land')){
-                    return 17;
-                }else{
-                    return 16;
-                }
-            }
-        }
-
-        function peg_color(colorChar){
-            if(colorChar === 'w')
-                return 'White';
-            if(colorChar === 'u')
-                return 'Blue';
-            if(colorChar === 'r')
-                return 'Red';
-            if(colorChar === 'b')
-                return 'Black';
-            if(colorChar === 'g')
-                return 'Green';
-        }
-
-        function peg_canPay(manaCost, ressource){
-            var reg = /{([0-9WUBRG/]*[WUBRG])}/g;
-            while(subCost = reg.exec(manaCost)){
-                var payable = false;
-                subCost = subCost[1].split('/');
-                for(var i=0; i<subCost.length; i++){
-                    if (_.includes(ressource, subCost[i]))
-                        payable = true;
-                }
-                if(!payable)
-                    return false;
-            }
-            return true;
-        }
 
     </script>
 @endsection

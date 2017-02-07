@@ -35,27 +35,30 @@ typePrefix
   = 'type' / 't'
 
 color "color"
-  = 'c:m'                          {
+  = colorPrefix ':m'                          {
   				       if(typeof options.meta.colors != 'undefined')
                                       	 if(options.meta.colors.length > 1)
                                             return true;
   				   }
 
-  / 'c:' color:[wurbg]+            {
+  / colorPrefix ':' color:[wurbg]+            {
                                       for(var i=0; i<color.length; i++){
                                         if(_.includes(options.meta.colors, peg_color(color[i])))
                                         	return true;
                                       }
                                    }
 
-  / 'c:' '"' color:[wurbg]+ '"'    {
-                                      var ret = true;
+  / colorPrefix ':' '"' color:[wurbg]+ '"'    {
+                                      ret = true;
                                       for(var i=0; i<color.length; i++){
                                         if(!_.includes(options.meta.colors, peg_color(color[i])))
                                         	ret = false;
                                       }
                                       return ret;
                                    }
+
+colorPrefix
+  = 'color' / 'c'
 
 payable "payable"
   = payablePrefix ':c' ressource:[wurbg]+       {
@@ -76,5 +79,8 @@ payablePrefix
   = 'pay' / 'p'
 
 text "text"
-  = 'o:' '"' text:([a-zA-Z ]+) '"' {return options.text.match(new RegExp(text.join(''), 'gi'));}
-  / 'o:'     text:[a-zA-Z]+        {return options.text.match(new RegExp(text.join(''), 'gi'));}
+  = textPrefix ':' '"' text:([a-zA-Z0-9 \-\/\+\:\{\}]+) '"' {return options.text.match(new RegExp(text.join(''), 'gi'));}
+  / textPrefix ':'     text:[a-zA-Z0-9\-\/\+\:\{\}]+        {return options.text.match(new RegExp(text.join(''), 'gi'));}
+
+textPrefix
+  = 'text' / 'o'
